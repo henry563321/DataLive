@@ -20,7 +20,7 @@ attribute.update`
 ### search and association
 
 Also the library provide the function of search with the specific attribute,
-and make association between class.
+and make association between classes
 
 ![association](/association.png)
 
