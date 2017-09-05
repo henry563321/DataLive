@@ -2,7 +2,7 @@ require_relative '../lib/db_associate'
 
 class Food < DataLive
   belongs_to :restaurant
-  has_one_through :boss, :restaurant, :owner
+  has_one_through :manager, :restaurant, :owner
 end
 
 class Restaurant < DataLive
