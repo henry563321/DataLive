@@ -77,8 +77,7 @@ module Associatable
   def has_one_through(name, through_name, source_name)
     define_method(name) do
       through_options = self.class.assoc_options[through_name]
-      source_options =
-        through_options.model_class.assoc_options[source_name]
+      source_options = through_options.model_class.assoc_options[source_name]
 
       through_table = through_options.table_name
       through_primary_key = through_options.primary_key
@@ -88,8 +87,8 @@ module Associatable
       source_primary_key = source_options.primary_key
       source_foreign_key = source_options.foreign_key
 
-      key_val = self.send(through_foreign_key)
-      results = DBConnection.execute(<<-SQL, key_val)
+      foreign_key_val = self.send(through_foreign_key)
+      res = DBConnection.execute(<<-SQL, foreign_key_val)
         SELECT
           #{source_table}.*
         FROM
@@ -102,7 +101,7 @@ module Associatable
           #{through_table}.#{through_primary_key} = ?
       SQL
 
-      source_options.model_class.parse_all(results).first
+      source_options.model_class.parse_all(res).first
     end
   end
 
@@ -112,6 +111,6 @@ module Associatable
   end
 end
 
-class SQLObject
+class DataLive
   extend Associatable
 end

@@ -1,5 +1,5 @@
 require_relative 'db_connection'
-require_relative 'basic_sql_action'
+require_relative 'db_basic_function'
 module Searchable
 
   def where(params)
@@ -19,6 +19,6 @@ module Searchable
   end
 end
 
-class SQLObject
+class DataLive
   extend Searchable
 end

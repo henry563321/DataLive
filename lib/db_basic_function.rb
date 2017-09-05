@@ -1,7 +1,7 @@
 require_relative 'db_connection'
 require 'active_support/inflector'
 
-class SQLObject
+class DataLive
   def self.columns
     name = self.table_name
     if @columns == nil
@@ -54,6 +54,7 @@ class SQLObject
   end
 
   def initialize(params = {})
+    self.class.finalize!
     params.each do |k, v|
       raise "unknown attribute '#{k}'" unless self.class.send(:columns).include?(k.to_sym)
       self.send("#{k}=", v)
@@ -85,7 +86,7 @@ class SQLObject
     values
       (#{question_marks})
     SQL
-    self.send("#{col.first}=" , DBConnection.last_insert_row_id)
+    self.send("#{col.first}=", DBConnection.last_insert_row_id)
   end
 
   def update
