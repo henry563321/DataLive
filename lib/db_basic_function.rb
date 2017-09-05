@@ -54,7 +54,6 @@ class DataLive
   end
 
   def initialize(params = {})
-    self.class.finalize!
     params.each do |k, v|
       raise "unknown attribute '#{k}'" unless self.class.send(:columns).include?(k.to_sym)
       self.send("#{k}=", v)
